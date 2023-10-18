@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/inocentini/codepix-go/domain/model"
+	"github.com/jinzhu/gorm"
 )
 
 type PixKeyRepositoryDb struct {
@@ -29,7 +30,7 @@ func (repo PixKeyRepositoryDb) AddAccount(account *model.Account) error {
 func (repo PixKeyRepositoryDb) RegisterKey(pixKey *model.PixKey) (*model.PixKey, error) {
 	err := repo.Db.Create(pixKey).Error
 	if err != nil {
-		return err
+		return nil, err
 	}
 	return pixKey, nil
 }

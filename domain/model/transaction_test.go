@@ -3,9 +3,9 @@ package model_test
 import (
 	"testing"
 
+	"github.com/inocentini/codepix-go/domain/model"
 	uuid "github.com/satori/go.uuid"
 
-	"github.com/codeedu/imersao/codepix-go/domain/model"
 	"github.com/stretchr/testify/require"
 )
 
@@ -34,7 +34,7 @@ func TestNewTransaction(t *testing.T) {
 	//
 	require.Nil(t, err)
 	require.NotNil(t, uuid.FromStringOrNil(transaction.ID))
-	require.Equal(t, transaction.Amount, amount)
+	require.Equal(t, transaction.Amout, amount)
 	require.Equal(t, transaction.Status, statusTransaction)
 	require.Equal(t, transaction.Description, "My description")
 	require.Empty(t, transaction.CancelDescription)
@@ -69,12 +69,11 @@ func TestModel_ChangeStatusOfATransaction(t *testing.T) {
 	amount := 3.10
 	transaction, _ := model.NewTransaction(account, amount, pixKey, "My description")
 
-	transaction.Complete()
+	transaction.Completed()
 	require.Equal(t, transaction.Status, model.TransactionCompleted)
 
 	transaction.Cancel("Error")
 	require.Equal(t, transaction.Status, model.TransactionError)
 	require.Equal(t, transaction.CancelDescription, "Error")
-
 
 }
